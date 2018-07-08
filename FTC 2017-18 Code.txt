@@ -1,0 +1,2139 @@
+﻿# 1- 11/3/2017 - Test Run - Check if motors are working
+
+
+ // Test Run for 4 motors, 1 touch sensor, 1 ColorSensor, 1 servo
+
+
+//import statements
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Hardware;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+
+@Autonomous
+
+
+public class TestRun extends LinearOpMode {
+    
+    private Gyroscope imu;
+    private DcMotor motor_0;
+    private DigitalChannel digitalTouch;
+    private DistanceSensor sensorColorRange;
+    private Servo servo_0;
+    
+    public void runOpMode()  {
+    
+        imu = hardwareMap.get(Gyroscope.class, "imu");
+        motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+        digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
+        sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
+        servo_0 = hardwareMap.get(Servo.class, "servo_0");
+    
+        telemetry.addData ("Status", "Initialized");
+        telemetry.update();
+        //Driver must press PLAY
+
+
+        //Declares variables for motor power and servo position
+        double tgtPowerMotor = 1;
+        double tgtPosServo = 1;
+        waitForStart();
+        
+        //Below code runs until driver presses STOP
+        while (opModeIsActive()) {
+            //Runs motor
+            motor_0.setPower(tgtPowerMotor);
+            telemetry.addData("Target Power", tgtPowerMotor);
+            telemetry.addData("Motor Power", motor_0.getPower());
+            
+            //Runs servo
+          
+            servo_0.setPosition(tgtPosServo);
+            telemetry.addData("Servo Position", servo_0.getPosition());
+            telemetry.addData("Target Servo Power", tgtPowerServo);
+        
+            
+            
+            //Displays Status
+            telemetry.addData("Status", "Running");
+            telemetry.update();
+        
+                };    
+    
+        
+        
+    
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#2 - 11/5/2017  Test Run: Color, Touch, and Servo Testing Added
+/* Test Run for 4 motors, 1 touch sensor, 1 ColorSensor, 1 servo */
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Hardware;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+
+@Autonomous
+
+
+public class TestRun extends LinearOpMode {
+    
+    private Gyroscope imu;
+    private DcMotor motor_0;
+    private DcMotor motor_1;
+    private DigitalChannel digitalTouch; 
+    private DistanceSensor sensorColorRange;
+    private Servo servo_0;
+    
+    public void runOpMode()  {
+    
+        imu = hardwareMap.get(Gyroscope.class, "imu");
+        motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+        motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+        digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
+        sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
+        servo_0 = hardwareMap.get(Servo.class, "servo_0");
+    
+        telemetry.addData ("Status", "Initialized");
+        telemetry.update();
+        //Driver must press PLAY
+        
+        double tgtPowerMotor = 1;
+        double tgtPowerServo = 1;
+        
+        //digital touch sensor 
+        digitalTouch.setMode(DigitalChannel.Mode.INPUT);
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+        
+        
+        waitForStart();
+        
+        //Below code runs until driver presses STOP
+       
+        while (opModeIsActive()) {
+             //motor
+             motor_0.setPower(tgtPowerMotor);
+             motor_1.setPower(tgtPowerMotor);
+             telemetry.addData("Target Power", tgtPowerMotor);
+             telemetry.addData("Motor Power 1", motor_0.getPower());
+             telemetry.addData("Motor Power 2", motor_1.getPower());
+         
+             //servo
+             servo_0.setPosition(tgtPowerServo);
+             telemetry.addData("Servo Position", servo_0.getPosition());
+             telemetry.addData("Target Servo Power", tgtPowerServo);
+             
+             //distance and color sensor
+             telemetry.addData("Distance (cm)", sensorColorRange.getDistance(DistanceUnit.CM));
+             
+             //touch sensor 
+             if (digitalTouch.getState() == false) {
+                 telemetry.addData("Button", "PRESSED");
+                
+             } else {
+                 telemetry.addData("Button", "NOT PRESSED");
+             }
+
+
+
+
+             //Displays Status Initialized
+             telemetry.addData("Status", "Running");
+             telemetry.update();
+        
+        };    
+    
+        
+        
+    
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#3 11/12/17 RUN IN ANY DIRECTION
+//This program runs it in a certain direction based on the value of the direction variable
+
+
+
+
+
+
+
+
+ /* 
+        FORWARD
+            double tgtFrMotorPower = 1;
+            double tgtFlMotorPower = -1;
+            double tgtBlMotorPower = -1;
+            double tgtBrMotorPower = 1;
+           BACK
+            double tgtFrMotorPower = -1;
+            double tgtFlMotorPower = 1;
+            double tgtBlMotorPower = 1;
+            double tgtBrMotorPower = -1;
+            RIGHT
+            double tgtFrMotorPower = -1;
+            double tgtFlMotorPower = -1;
+            double tgtBlMotorPower = 1;
+            double tgtBrMotorPower = 1;
+            LEFT
+            double tgtFrMotorPower = 1;
+            double tgtFlMotorPower = 1;
+            double tgtBlMotorPower = -1;
+            double tgtBrMotorPower = -1;
+ */
+            
+
+
+
+
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+
+@TeleOp
+    public class TestDrive extends LinearOpMode{
+        private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3;
+        
+        public void runOpMode()  {
+        
+            imu = hardwareMap.get(Gyroscope.class, "imu");
+            motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+            string direction = “forward” //This variable can be forward, backward, left, or right
+
+
+//moves robot
+
+
+            if(direction == “forward”){
+            //move forwards
+             while(opModeIsActive()){
+                motor_0.setPower(-1);//tgtFrMotorPower
+                motor_1.setPower(1);//tgtFlMotorPower
+                motor_2.setPower(1);//tgtBlMotorPower
+                motor_3.setPower(-1);//tgtBrMotorPower
+                }
+            } else if(direction == “backward”) {
+            //move back
+            while(opModeIsActive()){
+                motor_0.setPower(1);//tgtFrMotorPower
+                motor_1.setPower(-1);//tgtFlMotorPower
+                motor_2.setPower(-1);//tgtBlMotorPower
+                motor_3.setPower(1);//tgtBrMotorPower
+                };
+            } else if(direction == “right”) {
+            //move right
+            while(opModeIsActive()){
+                motor_0.setPower(1);//tgtFrMotorPower
+                motor_1.setPower(1);//tgtFlMotorPower
+                motor_2.setPower(-1);//tgtBlMotorPower
+                motor_3.setPower(-1);//tgtBrMotorPower
+                };
+            } else if(direction == “left”) {
+            //move left
+            while(opModeIsActive()){
+                motor_0.setPower(-1);//tgtFrMotorPower
+                motor_1.setPower(-1);//tgtFlMotorPower
+                motor_2.setPower(1);//tgtBlMotorPower
+                motor_3.setPower(1);//tgtBrMotorPower
+                };
+            };
+        }
+    }
+
+
+
+
+
+
+
+
+#4 - 11/19/17 Run in any direction WITH CONTROLLER
+
+
+//This program runs it FORWARDS
+
+
+ /* 
+        FORWARD
+            double tgtFrMotorPower = 1;
+            double tgtFlMotorPower = -1;
+            double tgtBlMotorPower = -1;
+            double tgtBrMotorPower = 1;   
+           BACK
+            double tgtFrMotorPower = -1;
+            double tgtFlMotorPower = 1;
+            double tgtBlMotorPower = 1;
+            double tgtBrMotorPower = -1;
+            RIGHT
+            double tgtFrMotorPower = -1;
+            double tgtFlMotorPower = -1;
+            double tgtBlMotorPower = 1;
+            double tgtBrMotorPower = 1;
+            LEFT
+            double tgtFrMotorPower = 1;
+            double tgtFlMotorPower = 1;
+            double tgtBlMotorPower = -1;
+            double tgtBrMotorPower = -1;
+ */
+            
+
+
+
+
+
+
+
+
+
+
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+
+@TeleOp
+    public class TestDrive extends LinearOpMode{
+        private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3;
+        
+        public void runOpMode()  {
+        
+            imu = hardwareMap.get(Gyroscope.class, "imu");
+            motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+            
+            
+            float joystickLeftX = this.gamepad1.left_stick_x;
+            float joystickLeftY = this.gamepad2.left_stick_y;
+            
+            if(joystickLeftY < -0.7){
+            //move forwards
+             while(opModeIsActive()){
+                motor_0.setPower(-joystickLeftY);//tgtFrMotorPower
+                motor_1.setPower(joystickLeftY);//tgtFlMotorPower
+                motor_2.setPower(joystickLeftY);//tgtBlMotorPower
+                motor_3.setPower(-joystickLeftY);//tgtBrMotorPower
+                }
+            } else if(joystickLeftY > 0.7) {
+            //move back
+            while(opModeIsActive()){
+                motor_0.setPower(joystickLeftY);//tgtFrMotorPower
+                motor_1.setPower(-joystickLeftY);//tgtFlMotorPower
+                motor_2.setPower(-joystickLeftY);//tgtBlMotorPower
+                motor_3.setPower(joystickLeftY);//tgtBrMotorPower
+                };
+            } else if(joystickLeftX < 0) {
+            //move right
+            while(opModeIsActive()){
+                motor_0.setPower(joystickLeftY);//tgtFrMotorPower
+                motor_1.setPower(joystickLeftY);//tgtFlMotorPower
+                motor_2.setPower(-joystickLeftY);//tgtBlMotorPower
+                motor_3.setPower(-joystickLeftY);//tgtBrMotorPower
+                };
+            } else if(joystickLeftX > 0) {
+            //move left
+            while(opModeIsActive()){
+                motor_0.setPower(-joystickLeftY);//tgtFrMotorPower
+                motor_1.setPower(-joystickLeftY);//tgtFlMotorPower
+                motor_2.setPower(joystickLeftY);//tgtBlMotorPower
+                motor_3.setPower(joystickLeftY);//tgtBrMotorPower
+                };
+            };
+            
+        }    
+        
+    }
+
+
+
+
+
+
+#5 - 11/20/17 Run in any direction with controller ADDING ON
+
+
+//This program runs it FORWARDS
+
+
+ /* front
+            double tgtFrMotorPower = 1;
+            double tgtFlMotorPower = -1;
+            double tgtBlMotorPower = -1;
+            double tgtBrMotorPower = 1;
+           BACK
+            double tgtFrMotorPower = -1;
+            double tgtFlMotorPower = 1;
+            double tgtBlMotorPower = 1;
+            double tgtBrMotorPower = -1;
+            RIGHT
+            double tgtFrMotorPower = -1;
+            double tgtFlMotorPower = -1;
+            double tgtBlMotorPower = 1;
+            double tgtBrMotorPower = 1;
+            LEFT
+            double tgtFrMotorPower = 1;
+            double tgtFlMotorPower = 1;
+            double tgtBlMotorPower = -1;
+            double tgtBrMotorPower = -1;
+ */
+            
+
+
+
+
+package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+
+@TeleOp
+    public class TestRunAnyDirection extends LinearOpMode{
+        private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3;
+        
+        public void runOpMode()  {
+        
+            imu = hardwareMap.get(Gyroscope.class, "imu");
+            motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart()
+
+
+//moves robot depending on joystick
+
+
+            while (opModeIsActive()) {
+            float joystickRightX = this.gamepad1.right_stick_x;
+            float joystickRightY = this.gamepad1.right_stick_y;
+            
+            if(joystickRightY != 0 || joystickRightX == 0){
+                while(opModeIsActive()){
+                //move forwards and back
+                motor_0.setPower(joystickRightY * -1);//tgtFrMotorPower
+                motor_1.setPower(joystickRightY * 1 );//tgtFlMotorPower
+                motor_2.setPower(joystickRightY * 1);//tgtBlMotorPower
+                motor_3.setPower(joystickRightY * -1);//tgtBrMotorPower
+                    }
+                }else if (joystickRightX != 0 || joystickRightY == 0){
+                while(opModeIsActive()){
+                //right and left
+                motor_0.setPower(joystickRightX * 1);//tgtFrMotorPower
+                motor_1.setPower(joystickRightX * 1 );//tgtFlMotorPower
+                motor_2.setPower(joystickRightX * -1);//tgtBlMotorPower
+                motor_3.setPower(joystickRightX * -1);//tgtBrMotorPower
+                }
+            } /*else if(joystickRightX > 0 || joystickRightY < 0) {
+            //move diagonally forward right
+                if(joystickRightY/joystickRightX == -1){
+                while(opModeIsActive()){
+                motor_0.setPower(0);//tgtFrMotorPower
+                motor_1.setPower(joystickRightX * -1);//tgtFlMotorPower
+                motor_2.setPower(0);//tgtBlMotorPower
+                motor_3.setPower(joystickRightX * 1);//tgtBrMotorPower
+                }else if (joystickRightY/joystickRightX < -1){
+                while(opModeIsActive()){
+                motor_0.setPower(.1/(joystickRightY/joystickRightX));//tgtFrMotorPower
+                motor_1.setPower(joystickRightX * -1);//tgtFlMotorPower
+                motor_2.setPower(.1/(joystickRightY/joystickRightX));//tgtBlMotorPower
+                motor_3.setPower(joystickRightX * 1);//tgtBrMotorPower
+                }
+                }else if (joystickRightY/joystickRightX > -1){
+                while(opModeIsActive()){
+                motor_0.setPower(.1/(joystickRightY/joystickRightX));//tgtFrMotorPower
+                motor_1.setPower(joystickRightX * -1);//tgtFlMotorPower
+                motor_2.setPower(-.1/(joystickRightY/joystickRightX));//tgtBlMotorPower
+                motor_3.setPower(joystickRightX * 1);//tgtBrMotorPower
+                }
+            } 
+        }*/
+            
+        }    
+    }   
+    }
+
+
+
+
+#6 - 11/21/2017 - Run in any direction, improved
+
+
+//This program runs it FORWARDS
+
+
+  /*FRONT
+            double tgtFrMotorPower = 1;
+            double tgtFlMotorPower = -1;
+            double tgtBlMotorPower = -1;
+            double tgtBrMotorPower = 1;
+           BACK
+            double tgtFrMotorPower = -1;
+            double tgtFlMotorPower = 1;
+            double tgtBlMotorPower = 1;
+            double tgtBrMotorPower = -1;
+            RIGHT
+            double tgtFrMotorPower = -1;
+            double tgtFlMotorPower = -1;
+            double tgtBlMotorPower = 1;
+            double tgtBrMotorPower = 1;
+            LEFT
+            double tgtFrMotorPower = 1;
+            double tgtFlMotorPower = 1;
+            double tgtBlMotorPower = -1;
+            double tgtBrMotorPower = -1;
+ */
+            
+
+
+
+
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+
+@TeleOp
+    public class TestDrive2 extends LinearOpMode{
+        private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3;
+        
+        public void runOpMode()  {
+        
+            imu = hardwareMap.get(Gyroscope.class, "imu");
+            motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+            
+//moves the robot left and right
+
+
+            while (opModeIsActive()) {
+                float joystickRightX = this.gamepad1.right_stick_x;
+                float joystickRightY = this.gamepad1.right_stick_y;
+            
+                if((joystickRightX*joystickRightX) - (joystickRightY*joystickRightY) < 0 && joystickRightY < 0){
+                float joystickRightYNew = this.gamepad1.right_stick_y;
+                //move forwards
+                 while(joystickRightY = joystickRightYNew){
+                    motor_0.setPower(-joystickRightY);//tgtFrMotorPower
+                    motor_1.setPower(joystickRightY);//tgtFlMotorPower
+                    motor_2.setPower(joystickRightY);//tgtBlMotorPower
+                    motor_3.setPower(-joystickRightY);//tgtBrMotorPower
+                    }
+                } else if((joystickRightX*joystickRightX) - (joystickRightY*joystickRightY) < 0 && joystickRightY > 0) {
+                float joystickRightYNew = this.gamepad1.right_stick_y;
+                //move back
+                while(joystickRightY = joystickRightYNew){
+                    motor_0.setPower(joystickRightY);//tgtFrMotorPower
+                    motor_1.setPower(-joystickRightY);//tgtFlMotorPower
+                    motor_2.setPower(-joystickRightY);//tgtBlMotorPower
+                    motor_3.setPower(joystickRightY);//tgtBrMotorPower
+                    };
+                } else if(joystickRightX < 0) {
+                float joystickRightXNew = this.gamepad1.right_stick_x;
+                //move right
+                while(joystickRightX = joystickRightXNew){
+                    motor_0.setPower(joystickRightY);//tgtFrMotorPower
+                    motor_1.setPower(joystickRightY);//tgtFlMotorPower
+                    motor_2.setPower(-joystickRightY);//tgtBlMotorPower
+                    motor_3.setPower(-joystickRightY);//tgtBrMotorPower
+                    };
+                } else if(joystickRightX > 0) {
+                float joystickRightXNew = this.gamepad1.right_stick_x;
+                //move left
+                while(joystickRightX = joystickRightXNew){
+                    motor_0.setPower(-joystickRightY);//tgtFrMotorPower
+                    motor_1.setPower(-joystickRightY);//tgtFlMotorPower
+                    motor_2.setPower(joystickRightY);//tgtBlMotorPower
+                    motor_3.setPower(joystickRightY);//tgtBrMotorPower
+            
+                    };
+                };        
+            };  
+            /*
+            else if(-1 < 0) {
+            //move diagonally foward left
+            while(opModeIsActive()){
+                motor_0.setPower(1);//tgtFrMotorPower
+                motor_1.setPower(0);//tgtFlMotorPower
+                motor_2.setPower(-1);//tgtBlMotorPower
+                motor_3.setPower(0);//tgtBrMotorPower
+                };
+            };
+            else if(5 < 0){
+            //move diagonally forward right
+             while(opModeIsActive()){
+                motor_0.setPower(0);//tgtFrMotorPower
+                motor_1.setPower(-1);//tgtFlMotorPower
+                motor_2.setPower(0);//tgtBlMotorPower
+                motor_3.setPower(1);//tgtBrMotorPower
+                }
+            } */
+        };    
+        
+    };
+
+
+
+
+
+
+
+
+
+
+#7 - 12/3/2017 - RobotRun
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+
+@TeleOp
+    public class RobotRun extends LinearOpMode{
+        private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3;
+        
+        static String FORWARD = "Forward";
+        static String BACKWARD = "Backward";
+        static String LEFT = "Left";
+        static String RIGHT = "Right";
+
+
+        private String direction = FORWARD; 
+
+
+        public void runOpMode()  {
+        
+            imu = hardwareMap.get(Gyroscope.class, "imu");
+            motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+            
+            while (opModeIsActive()) {
+                float joystickRightX = this.gamepad1.right_stick_x;
+                float joystickRightY = this.gamepad1.right_stick_y;
+
+
+                    // find out the move direction
+
+
+                if((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY < 0)
+                        direction = FORWARD;
+                else if ((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY > 0)
+                        direction = BACKWARD;
+                else if (joystickRightX > 0)
+                        direction = RIGHT;
+                else if (joystickRightX < 0)
+                        direction = LEFT;
+                
+                // update direction in driver controller
+
+
+                telemetry.addData ("Direction", direction);
+                   telemetry.update();
+                
+                if (direction == FORWARD) {
+                        //move forwards
+                        float joystickRightYNew = this.gamepad1.right_stick_y;
+                        while (joystickRightY == joystickRightYNew) {
+                                 motor_0.setPower(-joystickRightY);//tgtFrMotorPower
+                                motor_1.setPower(joystickRightY);//tgtFlMotorPower
+                                motor_2.setPower(joystickRightY);//tgtBlMotorPower
+                                motor_3.setPower(-joystickRightY);//tgtBrMotorPower
+                                joystickRightYNew = this.gamepad1.right_stick_y;
+                        }
+                } else if (direction == BACKWARD) {
+                        //move backwards
+                        float joystickRightYNew = this.gamepad1.right_stick_y;
+                        while (joystickRightY == joystickRightYNew) {
+                                 motor_0.setPower(joystickRightY);//tgtFrMotorPower
+                                motor_1.setPower(-joystickRightY);//tgtFlMotorPower
+                                motor_2.setPower(-joystickRightY);//tgtBlMotorPower
+                                motor_3.setPower(joystickRightY);//tgtBrMotorPower
+                                joystickRightYNew = this.gamepad1.right_stick_y;
+                        }
+        
+                } else if (direction == RIGHT) {
+                        //move right
+                        float joystickRightXNew = this.gamepad1.right_stick_x;
+                        while (joystickRightX == joystickRightXNew) {
+                                 motor_0.setPower(joystickRightX);//tgtFrMotorPower
+                                motor_1.setPower(joystickRightX);//tgtFlMotorPower
+                                motor_2.setPower(-joystickRightX);//tgtBlMotorPower
+                                motor_3.setPower(-joystickRightX);//tgtBrMotorPower
+                                joystickRightXNew = this.gamepad1.right_stick_x;
+                        }
+                } else if (direction == LEFT) {
+                        //move left
+                        float joystickRightXNew = this.gamepad1.right_stick_x;
+                        while (joystickRightX == joystickRightXNew) {
+                                 motor_0.setPower(-joystickRightX);//tgtFrMotorPower
+                                motor_1.setPower(-joystickRightX);//tgtFlMotorPower
+                                motor_2.setPower(joystickRightX);//tgtBlMotorPower
+                                motor_3.setPower(joystickRightX);//tgtBrMotorPower
+                                joystickRightXNew = this.gamepad1.right_stick_x;
+                        }
+                };
+                resetMotors ();            
+            }; // end while opmode active
+        }; // end runOpMode   
+
+
+        private void resetMotors () {
+                motor_0.setPower(0);//tgtFrMotorPower
+                motor_1.setPower(0);//tgtFlMotorPower
+                motor_2.setPower(0);//tgtBlMotorPower
+                motor_3.setPower(0);//tgtBrMotorPower[a][b]
+        }        
+    };
+
+
+
+
+#8 - 12/5/2017 - RobotRun + linear slide
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+
+@TeleOp
+    public class RobotRun extends LinearOpMode{
+        private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3;
+
+
+       
+static String FORWARD = "Forward";
+        static String BACKWARD = "Backward";
+        static String LEFT = "Left";
+        static String RIGHT = "Right";
+
+
+        private String direction = FORWARD; 
+
+
+        public void runOpMode()  {
+        
+            imu = hardwareMap.get(Gyroscope.class, "imu");
+            motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+            
+            while (opModeIsActive()) {
+                float joystickRightX = this.gamepad1.right_stick_x;
+                float joystickRightY = this.gamepad1.right_stick_y;
+
+
+                    // find out the move direction
+
+
+                if((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY < 0)
+                        direction = FORWARD;
+                else if ((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY > 0)
+                        direction = BACKWARD;
+                else if (joystickRightX > 0)
+                        direction = RIGHT;
+                else if (joystickRightX < 0)
+                        direction = LEFT;
+                
+                // update direction in driver controller
+                telemetry.addData ("Direction", direction);
+                   telemetry.update();
+                
+                if (direction == FORWARD) {
+                        //move forwards
+                        float joystickRightYNew = this.gamepad1.right_stick_y;
+                        while (joystickRightY == joystickRightYNew) {
+                                 motor_0.setPower(-joystickRightY);//tgtFrMotorPower
+                                motor_1.setPower(joystickRightY);//tgtFlMotorPower
+                                motor_2.setPower(joystickRightY);//tgtBlMotorPower
+                                motor_3.setPower(-joystickRightY);//tgtBrMotorPower
+                                joystickRightYNew = this.gamepad1.right_stick_y;
+                        }
+                } else if (direction == BACKWARD) {
+                        //move backwards
+                        float joystickRightYNew = this.gamepad1.right_stick_y;
+                        while (joystickRightY == joystickRightYNew) {
+                                 motor_0.setPower(joystickRightY);//tgtFrMotorPower
+                                motor_1.setPower(-joystickRightY);//tgtFlMotorPower
+                                motor_2.setPower(-joystickRightY);//tgtBlMotorPower
+                                motor_3.setPower(joystickRightY);//tgtBrMotorPower
+                                joystickRightYNew = this.gamepad1.right_stick_y;
+                        }
+        
+//turns the robot right or left
+
+
+                } else if (direction == RIGHT) {
+                        //move right
+                        float joystickRightXNew = this.gamepad1.right_stick_x;
+                        while (joystickRightX == joystickRightXNew) {
+                                 motor_0.setPower(joystickRightX);//tgtFrMotorPower
+                                motor_1.setPower(joystickRightX);//tgtFlMotorPower
+                                motor_2.setPower(-joystickRightX);//tgtBlMotorPower
+                                motor_3.setPower(-joystickRightX);//tgtBrMotorPower
+                                joystickRightXNew = this.gamepad1.right_stick_x;
+                        }
+                } else if (direction == LEFT) {
+                        //move left
+                        float joystickRightXNew = this.gamepad1.right_stick_x;
+                        while (joystickRightX == joystickRightXNew) {
+                                 motor_0.setPower(-joystickRightX);//tgtFrMotorPower
+                                motor_1.setPower(-joystickRightX);//tgtFlMotorPower
+                                motor_2.setPower(joystickRightX);//tgtBlMotorPower
+                                motor_3.setPower(joystickRightX);//tgtBrMotorPower
+                                joystickRightXNew = this.gamepad1.right_stick_x;
+
+
+                };
+                
+//moves the linear slide
+
+
+slidePower = this.gamepad2.right_stick_y;
+
+
+if ( slidePower != 0) {
+
+
+//CALL EXPANSION HUB MOTOR 1 AS  EX2motor_1
+float slidePowerNew=  this.gamepad2.right_stick_y;
+while (slidePower ==slidePowerNew) { 
+                        EX2motor_1.setPower( -slidePowerNew);
+                        slidePowerNew = this.gampad2.right_stick_y;
+
+
+} else {
+
+
+        EX2motor_1.setPower(0);
+};
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+                
+          
+            }; // end while opmode active
+        }; // end runOpMode   
+        
+        private void resetMotors () {
+                motor_0.setPower(0);//tgtFrMotorPower
+                motor_1.setPower(0);//tgtFlMotorPower
+                motor_2.setPower(0);//tgtBlMotorPower
+                motor_3.setPower(0);//tgtBrMotorPower
+        }        
+    };
+
+
+
+
+
+
+
+
+#9 - 12/10/2017 - RobotRunSlider
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo
+
+
+
+
+@TeleOp
+    public class RobotRunAndSlide extends LinearOpMode {
+        private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3;
+        private DcMotor EX2motor_1;
+        private Servo EX2claw;
+        
+        static String FORWARD = "Forward";
+        static String BACKWARD = "Backward";
+        static String LEFT = "Left";
+        static String RIGHT = "Right";
+    static String STOP = "Stop";
+
+
+        private String direction = STOP; 
+        private String turnDirection = STOP;
+
+
+        public void runOpMode()  {
+        
+            imu = hardwareMap.get(Gyroscope.class, "imu");
+            motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            EX2motor_1 = hardwareMap.get (DcMotor.class, "EX2motor_1");
+            EX2claw = hardwareMap.get(Servo.class, "EX2claw");
+            
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+            
+            while (opModeIsActive()) {
+                float joystickRightX = this.gamepad1.right_stick_x;
+                float joystickRightY = this.gamepad1.right_stick_y;
+                float joystickLeftX = this.gamepad1.left_stick_x;
+                
+                    // find out the move direction
+
+
+                if((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY < 0)
+                                direction = FORWARD;
+                        else if ((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY > 0)
+                                direction = BACKWARD;
+                        else if (joystickRightX > 0)
+                                direction = RIGHT;
+                        else if (joystickRightX < 0)
+                                direction = LEFT;
+                        else if (joystickRightX == 0 && joystickRightY == 0) {
+                            resetMotors ();
+                            direction = STOP;
+                        };
+                        
+                        if (joystickLeftX < 0)
+                            turnDirection = LEFT;
+                        else if (joystickLeftX > 0)
+                            turnDirection = RIGHT;
+                        else
+                            turnDirection = STOP;
+                            
+                        
+                        // update direction in driver controller
+                        telemetry.addData ("Direction", direction);
+                telemetry.update();
+                        
+                        if (direction == FORWARD) {
+                        //move forwards
+                                float joystickRightYNew = this.gamepad1.right_stick_y;
+                                while (joystickRightY == joystickRightYNew) {
+                                         motor_0.setPower(-joystickRightY);//tgtFrMotorPower
+                                        motor_1.setPower(joystickRightY);//tgtFlMotorPower
+                                        motor_2.setPower(joystickRightY);//tgtBlMotorPower
+                                        motor_3.setPower(-joystickRightY);//tgtBrMotorPower
+                                        joystickRightYNew = this.gamepad1.right_stick_y;
+                                }
+                        } else if (direction == BACKWARD) {
+                                //move backwards
+                                float joystickRightYNew = this.gamepad1.right_stick_y;
+                                while (joystickRightY == joystickRightYNew) {
+                                         motor_0.setPower(joystickRightY);//tgtFrMotorPower
+                                        motor_1.setPower(-joystickRightY);//tgtFlMotorPower
+                                        motor_2.setPower(-joystickRightY);//tgtBlMotorPower
+                                        motor_3.setPower(joystickRightY);//tgtBrMotorPower
+                                        joystickRightYNew = this.gamepad1.right_stick_y;
+                                }
+                
+                        } else if (direction == RIGHT) {
+                                //move right
+                                float joystickRightXNew = this.gamepad1.right_stick_x;
+                                while (joystickRightX == joystickRightXNew) {
+                                         motor_0.setPower(joystickRightX);//tgtFrMotorPower
+                                        motor_1.setPower(joystickRightX);//tgtFlMotorPower
+                                        motor_2.setPower(-joystickRightX);//tgtBlMotorPower
+                                        motor_3.setPower(-joystickRightX);//tgtBrMotorPower
+                                        joystickRightXNew = this.gamepad1.right_stick_x;
+                                }
+                        } else if (direction == LEFT) {
+                                //move left
+                                float joystickRightXNew = this.gamepad1.right_stick_x;
+                                while (joystickRightX == joystickRightXNew) {
+                                         motor_0.setPower(-joystickRightX);//tgtFrMotorPower
+                                        motor_1.setPower(-joystickRightX);//tgtFlMotorPower
+                                        motor_2.setPower(joystickRightX);//tgtBlMotorPower
+                                        motor_3.setPower(joystickRightX);//tgtBrMotorPower
+                                        joystickRightXNew = this.gamepad1.right_stick_x;
+                                }
+                        };
+                        
+                        if (turnDirection == LEFT){
+                        //spins left
+                            float joystickLeftXNew = this.gamepad1.left_stick_x;
+                                while (joystickLeftX == joystickLeftXNew) {
+                                         motor_0.setPower(joystickLeftX);//tgtFrMotorPower
+                                        motor_1.setPower(joystickLeftX);//tgtFlMotorPower
+                                        motor_2.setPower(joystickLeftX);//tgtBlMotorPower
+                                        motor_3.setPower(joystickLeftX);//tgtBrMotorPower
+                                        joystickLeftXNew = this.gamepad1.left_stick_x;
+                                }
+                        } else if (turnDirection == RIGHT){
+                        //spins right
+                            float joystickLeftXNew = this.gamepad1.left_stick_x;
+                                while (joystickLeftX == joystickLeftXNew) {
+                                         motor_0.setPower(-joystickLeftX);//tgtFrMotorPower
+                                        motor_1.setPower(-joystickLeftX);//tgtFlMotorPower
+                                        motor_2.setPower(-joystickLeftX);//tgtBlMotorPower
+                                        motor_3.setPower(-joystickLeftX);//tgtBrMotorPower
+                                        joystickLeftXNew = this.gamepad1.left_stick_x;
+                                }
+                        };
+
+
+                float slidePower = this.gamepad2.right_stick_y;
+
+
+
+
+
+
+
+
+
+
+//moves the linear slide up and down                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+        
+                if (slidePower != 0) {
+        
+                    //CALL EXPANSION HUB MOTOR 1 AS  EX2motor_1
+                    float slidePowerNew =  this.gamepad2.right_stick_y;
+                    while (slidePower == slidePowerNew) { 
+                                    EX2motor_1.setPower(-slidePowerNew);
+                                    slidePowerNew = this.gamepad2.right_stick_y;
+                    }
+                    
+                } else {
+                    
+                        EX2motor_1.setPower(0);
+                        
+                };
+            };// end while opmode active
+        };// end runOpMode   
+        
+        private void resetMotors () {
+                motor_0.setPower(0);//tgtFrMotorPower
+                motor_1.setPower(0);//tgtFlMotorPower
+                motor_2.setPower(0);//tgtBlMotorPower
+                motor_3.setPower(0);//tgtBrMotorPower
+        }        
+    };
+
+
+#10 - 12/12/17 RobotRunAndSliderClaw
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+
+@TeleOp
+    public class RobotRunAndSlide extends LinearOpMode {
+        private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3;
+        private DcMotor EX2motor_1;
+        private Servo EX2claw;
+        
+        static String FORWARD = "Forward";
+        static String BACKWARD = "Backward";
+        static String LEFT = "Left";
+        static String RIGHT = "Right";
+    static String STOP = "Stop";
+
+
+        private String direction = STOP; 
+        private String turnDirection = STOP;
+
+
+        public void runOpMode()  {
+        
+            imu = hardwareMap.get(Gyroscope.class, "imu");
+            motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            EX2motor_1 = hardwareMap.get (DcMotor.class, "EX2motor_1");
+            EX2claw = hardwareMap.get(Servo.class, "EX2claw");
+            
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+            
+            while (opModeIsActive()) {
+                float joystickRightX = this.gamepad1.right_stick_x;
+                float joystickRightY = this.gamepad1.right_stick_y;
+                float joystickLeftX = this.gamepad1.left_stick_x;
+
+
+                    // find out the move direction
+
+
+                if((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY < 0)
+                                direction = FORWARD;
+                        else if ((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY > 0)
+                                direction = BACKWARD;
+                        else if (joystickRightX > 0)
+                                direction = RIGHT;
+                        else if (joystickRightX < 0)
+                                direction = LEFT;
+                        else if (joystickRightX == 0 && joystickRightY == 0) {
+                            resetMotors ();
+                            direction = STOP;
+                        };
+                        
+                //sets turn direction
+                        if (joystickLeftX < 0)
+                            turnDirection = LEFT;
+                        else if (joystickLeftX > 0)
+                            turnDirection = RIGHT;
+                        else
+                            turnDirection = STOP;
+                            
+                        
+                        // update direction in driver controller
+                        telemetry.addData ("Direction", direction);
+                telemetry.update();
+                        
+                        if (direction == FORWARD) {
+                        //move forwards
+                                float joystickRightYNew = this.gamepad1.right_stick_y;
+                                while (joystickRightY == joystickRightYNew) {
+                                         motor_0.setPower(-joystickRightY);//tgtFrMotorPower
+                                        motor_1.setPower(joystickRightY);//tgtFlMotorPower 
+                                        motor_2.setPower(joystickRightY);//tgtBlMotorPower
+                                        motor_3.setPower(-joystickRightY);//tgtBrMotorPower
+                                        joystickRightYNew = this.gamepad1.right_stick_y;
+                                }
+                        } else if (direction == BACKWARD) {
+                        //move backwards
+                                float joystickRightYNew = this.gamepad1.right_stick_y;
+                                while (joystickRightY == joystickRightYNew) {
+                                         motor_0.setPower(joystickRightY);//tgtFrMotorPower
+                                        motor_1.setPower(-joystickRightY);//tgtFlMotorPower
+                                        motor_2.setPower(-joystickRightY);//tgtBlMotorPower
+                                        motor_3.setPower(joystickRightY);//tgtBrMotorPower
+                                        joystickRightYNew = this.gamepad1.right_stick_y;
+                                }
+                
+                        } else if (direction == RIGHT) {
+                                //move right
+                                float joystickRightXNew = this.gamepad1.right_stick_x;
+                                while (joystickRightX == joystickRightXNew) {
+                                         motor_0.setPower(joystickRightX);//tgtFrMotorPower
+                                        motor_1.setPower(joystickRightX);//tgtFlMotorPower
+                                        motor_2.setPower(-joystickRightX);//tgtBlMotorPower
+                                        motor_3.setPower(-joystickRightX);//tgtBrMotorPower
+                                        joystickRightXNew = this.gamepad1.right_stick_x;
+                                }
+                        } else if (direction == LEFT) {
+                                //move left
+                                float joystickRightXNew = this.gamepad1.right_stick_x;
+                                while (joystickRightX == joystickRightXNew) {
+                                         motor_0.setPower(-joystickRightX);//tgtFrMotorPower
+                                        motor_1.setPower(-joystickRightX);//tgtFlMotorPower
+                                        motor_2.setPower(joystickRightX);//tgtBlMotorPower
+                                        motor_3.setPower(joystickRightX);//tgtBrMotorPower
+                                        joystickRightXNew = this.gamepad1.right_stick_x;
+                                }
+                        };
+                        
+                        if (turnDirection == LEFT) {
+                            float joystickLeftXNew = this.gamepad1.left_stick_x;
+                                while (joystickLeftX == joystickLeftXNew) {
+                                         motor_0.setPower(joystickLeftX);//tgtFrMotorPower
+                                        motor_1.setPower(joystickLeftX);//tgtFlMotorPower
+                                        motor_2.setPower(joystickLeftX);//tgtBlMotorPower
+                                        motor_3.setPower(joystickLeftX);//tgtBrMotorPower
+                                        joystickLeftXNew = this.gamepad1.left_stick_x;
+                                }
+                        } else if (turnDirection == RIGHT){
+                            float joystickLeftXNew = this.gamepad1.left_stick_x;
+                                while (joystickLeftX == joystickLeftXNew) {
+                                         motor_0.setPower(-joystickLeftX);//tgtFrMotorPower
+                                        motor_1.setPower(-joystickLeftX);//tgtFlMotorPower
+                                        motor_2.setPower(-joystickLeftX);//tgtBlMotorPower
+                                        motor_3.setPower(-joystickLeftX);//tgtBrMotorPower
+                                        joystickLeftXNew = this.gamepad1.left_stick_x;
+                                }
+                        };
+
+
+                float slidePower = this.gamepad2.right_stick_y;
+        
+                if (slidePower != 0) {
+        
+                    //CALL EXPANSION HUB MOTOR 1 AS  EX2motor_1
+                    float slidePowerNew =  this.gamepad2.right_stick_y;
+                    while (slidePower == slidePowerNew) { 
+                                    EX2motor_1.setPower(-slidePowerNew);
+                                    slidePowerNew = this.gamepad2.right_stick_y;
+                    }
+                    
+                } else {
+                    
+                        EX2motor_1.setPower(0);
+                        
+                };
+
+
+                //this section controls the claw
+float buttonA = this.gamepad2.a;
+                   float buttonB = gamepad2.b;
+
+
+                If (buttonA.getState() == true) {
+
+
+                While (buttonA == true) {
+                EX2claw.setPower(2);
+}
+}
+                If (buttonB.getState() == true) {
+                
+                While (buttonB == true) {
+                EX2claw.setPower(-2);
+}
+}
+
+
+            }; // end while opmode active
+        }; // end run OpMode   
+        
+        private void resetMotors () {
+                motor_0.setPower(0);//tgtFrMotorPower
+                motor_1.setPower(0);//tgtFlMotorPower
+                motor_2.setPower(0);//tgtBlMotorPower
+                motor_3.setPower(0);//tgtBrMotorPower
+        }        
+    };
+
+
+
+
+#11 Autonomous R1
+
+
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.hardware.CompassSensor.CompassMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServoImplEx;
+
+
+@Autonomous
+public class Autonomous_R1 extends LinearOpMode {
+ private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3;
+        private CRServo servo_claw;
+        private CRServo servo_1; 
+        
+   public void runOpMode()  {
+     motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            servo_claw = hardwareMap.get (CRServo.class, "servo_claw");
+            servo_1 = hardwareMap.get(CRServo.class, "servo_1");
+
+
+
+
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            waitForStart();
+
+
+   //Moving backward
+    motor_0.setPower(-0.15);
+    motor_1.setPower(0.15);
+    motor_2.setPower(0.14);
+    motor_3.setPower(-0.14);
+    sleep(500);
+    
+    //Moving left
+    motor_0.setPower(-0.15);
+    motor_1.setPower(-0.15);
+    motor_2.setPower(0.14);
+    motor_3.setPower(0.14);
+    sleep(3250);
+    
+    //Moving forward
+    
+    motor_0.setPower(0.15);
+    motor_1.setPower(-0.15);
+    motor_2.setPower(-0.15);
+    motor_3.setPower(0.15);
+    sleep(600);
+    
+    //Releases Glyph
+    
+    servo_claw.setPower(-1);
+    sleep(1500);
+    
+    //Moves Backwards
+    motor_0.setPower(-0.15);
+    motor_1.setPower(0.15);
+    motor_2.setPower(0.14);
+    motor_3.setPower(-0.14);
+    sleep(200);
+
+
+};
+
+
+
+
+#12 Autonomous B1
+
+
+package org.firstinspires.ftc.teamcode;
+
+
+Import com.qualcomm.robotcore.hardware.CompassSensor.CompassMode
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+
+@Autonomous
+Public class autonomous extends LinearOpMode {
+ private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3
+        private Servo servo_claw;
+        private Servo servo_1; 
+        
+   public void runOpMode()  {
+         motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            servo_claw= hardwareMap.get (Servo.class, "servo_claw");
+            servo_1 = hardwareMap.get(Servo.class, "servo_1");
+
+
+
+
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+
+
+        // Position is top right
+        motor_0.setPower(0.05);
+        motor_1.setPower(-0.05);
+        motor_2.setPower(-0.05);
+        motor_3.setPower(0.05);
+        sleep(1500);
+        
+
+
+
+
+};
+#13 Autonomous R2
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.hardware.CompassSensor.CompassMode
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+
+@Autonomous
+Public class autonomous extends LinearOpMode {
+ private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3
+        private Servo servo_claw;
+        private Servo servo_1; 
+        
+   public void runOpMode()  {
+         motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            servo_claw= hardwareMap.get (Servo.class, "servo_claw");
+            servo_1 = hardwareMap.get(Servo.class, "servo_1");
+
+
+
+
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+
+
+        // Position is bottom left
+        motor_0.setPower(0.05);
+        motor_1.setPower(-0.05);
+        motor_2.setPower(-0.05);
+        motor_3.setPower(0.05);
+        sleep(1000);
+        motor_0.setPower(-0.05);
+        motor_1.setPower(-0.05);
+        motor_2.setPower(0.05);
+        motor_2.setPower(0.05);
+        sleep(500);
+        
+
+
+
+
+};
+
+
+#14 Autonomous B2
+
+
+package org.firstinspires.ftc.teamcode;
+
+
+Import com.qualcomm.robotcore.hardware.CompassSensor.CompassMode
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+
+@Autonomous
+Public class autonomous extends LinearOpMode {
+ private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3
+        private Servo servo_claw;
+        private Servo servo_1; 
+        
+   public void runOpMode()  {
+         motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            servo_claw= hardwareMap.get (Servo.class, "servo_claw");
+            servo_1 = hardwareMap.get(Servo.class, "servo_1");
+
+
+
+
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+
+
+        // Position is bottom left
+        motor_0.setPower(0.05);
+        motor_1.setPower(-0.05);
+        motor_2.setPower(-0.05);
+        motor_3.setPower(0.05); 
+        sleep(1000);
+        motor_0.setPower(0.05);
+        motor_1.setPower(0.05);
+        motor_2.setPower(-0.05);
+        motor_2.setPower(-0.05);
+        sleep(500);
+        
+
+
+
+
+};
+#15 - 1/4/
+2018 - RobotRunAndSlideClaw
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServoImplEx;
+
+
+@TeleOp
+    public class RobotRunAndSlide extends LinearOpMode {
+        private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3;
+        private CRServo servo_claw;
+        private CRServo servo_1;
+        
+    static String FORWARD = "Forward";
+    static String BACKWARD = "Backward";
+    static String LEFT = "Left";
+    static String RIGHT = "Left";
+    static String STOP = "Stop";
+
+
+    private String direction = STOP; 
+    private String turnDirection = STOP;
+
+
+        public void runOpMode()  {
+        
+            imu = hardwareMap.get(Gyroscope.class, "imu");
+            motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            servo_claw = hardwareMap.get(CRServo.class, "servo_claw");
+            servo_1 = hardwareMap.get(CRServo.class, "servo_1");
+            
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+            
+            while (opModeIsActive()) {
+                float joystickRightX = this.gamepad1.right_stick_x;
+                float joystickRightY = this.gamepad1.right_stick_y;
+                float joystickLeftX = this.gamepad1.left_stick_x;
+                
+                // find out the move direction
+
+
+                //finds out robot’s direction
+                if((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY < 0)
+                    direction = FORWARD;
+                else if ((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY > 0)
+                    direction = FORWARD;
+                else if (joystickRightX > 0)
+                    direction = RIGHT;
+                else if (joystickRightX < 0)
+                    direction = RIGHT;
+                else if (joystickRightX == 0 && joystickRightY == 0) {
+                    resetMotors ();
+                    direction = STOP;
+                };
+                
+                if (joystickLeftX < 0)
+                    turnDirection = LEFT;
+                else if (joystickLeftX > 0)
+                    turnDirection = LEFT;
+                else
+                    turnDirection = STOP;
+                    
+                
+                //update direction in driver controller
+                telemetry.addData ("Direction", direction);
+                telemetry.update();
+                
+                if (direction == FORWARD) {
+                    //move forwards
+                    float joystickRightYNew = this.gamepad1.right_stick_y;
+                    while (joystickRightY == joystickRightYNew) {
+                         motor_0.setPower(-joystickRightY/4);//tgtFrMotorPower
+                        motor_1.setPower(joystickRightY/4);//tgtFlMotorPower
+                        motor_2.setPower(joystickRightY/4);//tgtBlMotorPower
+                        motor_3.setPower(-joystickRightY/4);//tgtBrMotorPower
+                        joystickRightYNew = this.gamepad1.right_stick_y;
+                    }
+                } else if (direction == BACKWARD) {
+                    //move backwards
+                    float joystickRightYNew = this.gamepad1.right_stick_y;
+                    while (joystickRightY == joystickRightYNew) {
+                         motor_0.setPower(joystickRightY/4);//tgtFrMotorPower
+                        motor_1.setPower(-joystickRightY/4);//tgtFlMotorPower
+                        motor_2.setPower(-joystickRightY/4);//tgtBlMotorPower
+                        motor_3.setPower(joystickRightY/4);//tgtBrMotorPower
+                        joystickRightYNew = this.gamepad1.right_stick_y;
+                    }
+            
+                } else if (direction == RIGHT) {
+                    //move right
+                    float joystickRightXNew = this.gamepad1.right_stick_x;
+                    while (joystickRightX == joystickRightXNew) {
+                         motor_0.setPower(joystickRightX/4);//tgtFrMotorPower
+                        motor_1.setPower(joystickRightX/4);//tgtFlMotorPower
+                        motor_2.setPower(-joystickRightX/4);//tgtBlMotorPower
+                        motor_3.setPower(-joystickRightX/4);//tgtBrMotorPower
+                        joystickRightXNew = this.gamepad1.right_stick_x;
+                    }
+                } else if (direction == LEFT) {
+                    //move left
+                    float joystickRightXNew = this.gamepad1.right_stick_x;
+                    while (joystickRightX == joystickRightXNew) {
+                         motor_0.setPower(-joystickRightX/4);//tgtFrMotorPower
+                        motor_1.setPower(-joystickRightX/4);//tgtFlMotorPower
+                        motor_2.setPower(joystickRightX/4);//tgtBlMotorPower
+                        motor_3.setPower(joystickRightX/4);//tgtBrMotorPower
+                        joystickRightXNew = this.gamepad1.right_stick_x;
+                    }
+                } else if (direction == STOP){
+//spins left
+                    if (turnDirection == LEFT){
+                        float joystickLeftXNew = this.gamepad1.left_stick_x;
+                        while (joystickLeftX == joystickLeftXNew) {
+                             motor_0.setPower(joystickLeftX/6);//tgtFrMotorPower
+                            motor_1.setPower(joystickLeftX/6);//tgtFlMotorPower
+                            motor_2.setPower(joystickLeftX/6);//tgtBlMotorPower
+                            motor_3.setPower(joystickLeftX/6);//tgtBrMotorPower
+                            joystickLeftXNew = this.gamepad1.left_stick_x;
+                        }
+                    } 
+ //spins right
+ else if (turnDirection == RIGHT){
+                        float joystickLeftXNew = this.gamepad1.left_stick_x;
+                        while (joystickLeftX == joystickLeftXNew) {
+                            motor_0.setPower(joystickLeftX/6);//tgtFrMotorPower
+                            motor_1.setPower(joystickLeftX/6);//tgtFlMotorPower
+                            motor_2.setPower(joystickLeftX/6);//tgtBlMotorPower
+                            motor_3.setPower(joystickLeftX/6);//tgtBrMotorPower
+                            joystickLeftXNew = this.gamepad1.left_stick_x;
+                        }
+                    };
+                };
+              
+                //sets slide up or down
+               float slidePower = this.gamepad2.right_stick_y;
+                
+                if (slidePower != 0) {
+                    
+                    float slidePowerNew =  this.gamepad2.right_stick_y;
+                    while (slidePower == slidePowerNew) { 
+                        servo_claw.setPower(-slidePowerNew*4);
+                        slidePowerNew = this.gamepad2.right_stick_y;
+                    }
+                    
+                } else {
+                    
+                    servo_claw.setPower(0);
+                    
+            //this section controls the claw
+            boolean buttonA = this.gamepad2.a;
+            boolean buttonB = this.gamepad2.b;
+
+
+            if (buttonA == true) {
+        //opens claw
+            while (buttonA == true) {
+            servo_1.setPower(1);
+            buttonA = this.gamepad2.a;
+    }
+    }
+            else if (buttonB == true) {
+        //closes claw
+            while (buttonB == true) {
+            servo_1.setPower(-1);
+            buttonB = this.gamepad2.b;
+    }
+    }
+         
+                }; 
+            };//end while opmode active
+        }; //end runOpMode   
+        
+        
+    
+    private void resetMotors () {
+        motor_0.setPower(0);//tgtFrMotorPower
+        motor_1.setPower(0);//tgtFlMotorPower
+                motor_2.setPower(0);//tgtBlMotorPower
+                motor_3.setPower(0);//tgtBrMotorPower
+        }        
+    };
+
+
+#16 - 1/5/2018 - RobotRunAndSlideClaw
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImpl;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServoImplEx;
+
+
+@TeleOp
+    public class RobotRunAndSlide extends LinearOpMode {
+        private Gyroscope imu;
+        private DcMotor motor_0;
+        private DcMotor motor_1;
+        private DcMotor motor_2;
+        private DcMotor motor_3;
+        private CRServo servo_claw;
+        private CRServo servo_1;
+        
+    static String FORWARD = "Forward";
+    static String BACKWARD = "Backward";
+    static String LEFT = "Left";
+    static String RIGHT = "Left";
+    static String STOP = "Stop";
+
+
+    private String direction = STOP; 
+    private String turnDirection = STOP;
+
+
+        public void runOpMode()  {
+        
+            imu = hardwareMap.get(Gyroscope.class, "imu");
+            motor_0 = hardwareMap.get(DcMotor.class, "motor_0");
+            motor_1 = hardwareMap.get(DcMotor.class, "motor_1");
+            motor_2 = hardwareMap.get(DcMotor.class, "motor_2");
+            motor_3 = hardwareMap.get(DcMotor.class, "motor_3");
+            servo_claw = hardwareMap.get(CRServo.class, "servo_claw");
+            servo_1 = hardwareMap.get(CRServo.class, "servo_1");
+            
+            telemetry.addData ("Status", "Initialized");
+            telemetry.update();
+            //Driver must press INIT and then ▶️
+            
+            waitForStart();
+            
+            while (opModeIsActive()) {
+                float joystickRightX = this.gamepad1.right_stick_x;
+                float joystickRightY = this.gamepad1.right_stick_y;
+                float joystickLeftX = this.gamepad1.left_stick_x;
+                
+                //find out the move direction
+
+
+                if((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY < 0)
+                    direction = FORWARD;
+                else if ((joystickRightX * joystickRightX) - (joystickRightY * joystickRightY) < 0 && joystickRightY > 0)
+                    direction = BACKWARD
+                else if (joystickRightX > 0)
+                    direction = RIGHT;
+                else if (joystickRightX < 0)
+                    direction = LEFT;
+                else if (joystickRightX == 0 && joystickRightY == 0) {
+                    resetMotors ();
+                    direction = STOP;
+                };
+                //finds out the turning direction
+                if (joystickLeftX < 0)
+                    turnDirection = LEFT;
+                else if (joystickLeftX > 0)r
+                    turnDirection = RIGHT ;
+                else
+                    turnDirection = STOP;
+                    
+                
+                //update direction in driver controller
+                telemetry.addData ("Direction", direction);
+                telemetry.update();
+                
+                if (direction == FORWARD || direction == BACKWARD) {
+                    //move forwards
+                    float joystickRightYNew = this.gamepad1.right_stick_y;
+                    while (joystickRightY == joystickRightYNew) {
+                         motor_0.setPower(-joystickRightY/4);//tgtFrMotorPower
+                        motor_1.setPower(joystickRightY/4);//tgtFlMotorPower
+                        motor_2.setPower(joystickRightY/4);//tgtBlMotorPower
+                        motor_3.setPower(-joystickRightY/4);//tgtBrMotorPower
+                        joystickRightYNew = this.gamepad1.right_stick_y;
+                    }            
+                } else if (direction == RIGHT || direction == LEFT) {
+                    //move right
+                    float joystickRightXNew = this.gamepad1.right_stick_x;
+                    while (joystickRightX == joystickRightXNew) {
+                         motor_0.setPower(joystickRightX/4);//tgtFrMotorPower
+                        motor_1.setPower(joystickRightX/4);//tgtFlMotorPower
+                        motor_2.setPower(-joystickRightX/4);//tgtBlMotorPower
+                        motor_3.setPower(-joystickRightX/4);//tgtBrMotorPower
+                        joystickRightXNew = this.gamepad1.right_stick_x;
+                    }
+                 } else if (direction == STOP){
+                         //spins left
+                    if (turnDirection == LEFT || turnDirection == RIGHT){
+                        float joystickLeftXNew = this.gamepad1.left_stick_x;
+                        while (joystickLeftX == joystickLeftXNew) {
+                             motor_0.setPower(joystickLeftX/6);//tgtFrMotorPower
+                            motor_1.setPower(joystickLeftX/6);//tgtFlMotorPower
+                            motor_2.setPower(joystickLeftX/6);//tgtBlMotorPower
+                            motor_3.setPower(joystickLeftX/6);//tgtBrMotorPower
+                            joystickLeftXNew = this.gamepad1.left_stick_x;
+                        }
+                    } else if (turnDirection == RIGHT){
+                 //spins right
+                        float joystickLeftXNew = this.gamepad1.left_stick_x;
+                        while (joystickLeftX == joystickLeftXNew) {
+                            motor_0.setPower(joystickLeftX/6);//tgtFrMotorPower
+                            motor_1.setPower(joystickLeftX/6);//tgtFlMotorPower
+                            motor_2.setPower(joystickLeftX/6);//tgtBlMotorPower
+                            motor_3.setPower(joystickLeftX/6);//tgtBrMotorPower
+                            joystickLeftXNew = this.gamepad1.left_stick_x;
+                        }
+                    };
+                };
+              
+               float slidePower = this.gamepad2.right_stick_y;
+               
+             //controls robot claw
+                if (slidePower != 0) {
+                    
+                    float slidePowerNew =  this.gamepad2.right_stick_y;
+                    while (slidePower == slidePowerNew) { 
+                        servo_claw.setPower(-slidePowerNew*4);
+                        slidePowerNew = this.gamepad2.right_stick_y;
+                    }
+                    
+                } else {
+                    
+                    servo_claw.setPower(0);
+                    
+             //this section controls the slide
+            boolean buttonA = this.gamepad2.a;
+            boolean buttonB = this.gamepad2.b;
+        boolean buttonX = this.gamepad2.x;
+            if (buttonA == true) {
+        //raises slide
+            while (buttonA == true) {
+            servo_1.setPower(1);
+            buttonA = this.gamepad2.a;
+    }
+    }
+            else if (buttonB == true) {
+                //lowers slide
+            while (buttonB == true) {
+            servo_1.setPower(-1);
+            buttonB = this.gamepad2.b;
+    }
+    }        
+        else if (button X == true){
+        //stops motor
+        servo_1.setPower(-0.05);
+            }
+                }; 
+            }; // end while opmode active
+        }; // end runOpMode
+    private void resetMotors () {
+        motor_0.setPower(0);//tgtFrMotorPower
+        motor_1.setPower(0);//tgtFlMotorPower
+                motor_2.setPower(0);//tgtBlMotorPower
+                motor_3.setPower(0);//tgtBrMotorPower
+        }        
+    };
+[a]wait why do we need this..won't it self reset...i need to kn0w
+[b]I don't really know
